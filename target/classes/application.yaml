@@ -1,0 +1,75 @@
+#spring:
+#  web:
+#    resources:
+#      static-locations: classpath:/images
+#  mvc:
+#    static-path-pattern: /res/**
+
+#spring:
+#  mvc:
+#    view:
+#      prefix: /
+#      suffix: .html
+#server:
+#  servlet:
+#    context-path: /
+#spring:
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB # 单个文件最大上传大小
+#      max-request-size: 100MB  #总共上传最大大小
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_account
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 12345678
+
+    druid:
+      filters: stat,wall  #开启stat（sql监控）、wall（防火墙）
+      stat-view-servlet:
+        enabled: true  #开启监控页
+        login-username: admin  #监控页访问账号和密码
+        login-password: 123456
+        allow: 192.168.1.1  #访问白名单
+        deny: 192.168.1.1  #访问黑名单
+        reset-enable: false  #关闭重置功能
+
+      web-stat-filter:
+        enabled: true  #开启web监控
+        url-pattern: /*  #监控哪些请求
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*' #排除请求，默认就是
+      aop-patterns: con.oyzc.boot.*  #监控这个包下的JavaBean
+
+      filter:
+        stat:  #配置sql监控功能
+          slow-sql-millis: 1000  #时间大于1000毫秒都为慢查询
+          log-slow-sql: true  #是否需要记录慢查询
+          enabled: true  #默认为true
+        wall:  #配置防火墙功能
+          enabled: true  #默认为true
+          config:
+            select-allow: true  #是否允许执行查询操作
+            delete-allow: false #是否允许执行删除操作
+            update-allow: false #是否允许执行更新操作
+            insert-allow: true #是否允许执行新增操作
+
+  redis:
+#    host: 127.0.0.1
+#    port: 6379  #默认是6379
+#    password:   #默认为空
+    url: redis://password@127.0.0.1:6379 #连接URL，将覆盖主机，端口和密码（用户将被忽略），我的密码为空，password不写也可以
+#    client-type: jedis
+
+  jdbc:
+    template:
+      query-timeout: 3  # 超时连接次数
+
+
+#配置mybatis规则
+#mybatis:
+#  config-location: classpath:mybatis/mybatis-config.xml  #全局配置文件位置
+#  mapper-locations: classpath:mybatis/mapper/*.xml  #sql映射文件位置
+#  configuration:  #推荐在这里写配置 mybatis-config.xml可以删除
+#    map-underscore-to-camel-case: true  #开启驼峰命名自动映射
+

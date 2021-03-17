@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${message}"></h1>
+<h1>[[${session.loginUser.username}]]</h1>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label>单文件上传</label>
+    <input type="file" name="headerImg">
+    <label>多文件上传</label>
+    <input type="file" name="photos" multiple>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
